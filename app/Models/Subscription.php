@@ -16,6 +16,7 @@ class Subscription extends Model
         'contact',
         'price',
         'subscribed_at',
+        'subscription_end',
         'mediatype_id'
     ];
 
@@ -23,5 +24,12 @@ class Subscription extends Model
     {
         return $this->belongsTo(Mediatype::class);
     }
+
+    protected $casts = [
+    'subscribed_at' => 'datetime',
+    'subscription_end' => 'datetime',
+    'created_at' => 'datetime',
+    'updated_at' => 'datetime',
+];
 
 }

@@ -22,11 +22,12 @@ class UpdateSubscriptionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
             'name' => 'required',
-            'contact'=>'required',
-            'price' => 'required|decimal:0,2',
-            'mediatype_id' => 'nullable'
+            'contact' => 'required',
+            'price' => 'required|numeric',
+            'subscribed_at' => 'nullable|date',
+            'subscription_end' => 'nullable|date|after_or_equal:subscribed_at',
+            'mediatype_id' => 'nullable|exists:mediatypes,id',
         ];
     }
 }

@@ -4,68 +4,112 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Mediatype;
+use Illuminate\Support\Facades\Response;
 
 class MediatypeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-        $mts = Mediatype::all();
-        return view('mediatypes.index', ['mts' => $mts]);
+    public function index(Request $request)
+{
+    $search = $request->input('search');
+    $sort = $request->input('sort');
+    $view = $request->input('view', 'grid'); // default: grid
+
+    $query = Mediatype::with('subscriptions');
+
+    // Suche
+    if ($search) {
+        $query->where('name', 'like', '%' . $search . '%');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    // Sortierung
+    if ($sort === 'name_asc') {
+        $query->orderBy('name', 'asc');
+    } elseif ($sort === 'name_desc') {
+        $query->orderBy('name', 'desc');
+    }
+
+    $mts = $query->get();
+
+    return view('mediatypes.index', [
+        'mts' => $mts,
+        'search' => $search,
+        'sort' => $sort,
+        'view' => $view
+    ]);
+}
+
     public function create()
     {
-        //
+        return view('mediatypes.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
         $mt = new Mediatype();
-        $mt->name= $request['name'];
+        $mt->name = $request['name'];
         $mt->save();
-        return redirect ()-> route('mediatypes.index');
+        return redirect()->route('mediatypes.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
-        //
+        $mediatype = Mediatype::findOrFail($id);
+        return view('mediatypes.edit', compact('mediatype'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        $mediatype = Mediatype::findOrFail($id);
+        $mediatype->name = $request->input('name');
+        $mediatype->save();
+
+        return redirect()->route('mediatypes.index')->with('success', 'Medientyp erfolgreich aktualisiert');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        //
+        $mediatype = Mediatype::findOrFail($id);
+        $mediatype->delete();
+
+        return redirect()->route('mediatypes.index')->with('success', 'Medientyp gelöscht');
+    }
+
+    public function export($id)
+    {
+        $mediatype = Mediatype::with('subscriptions')->findOrFail($id);
+
+        $filename = 'subscriptions_' . $mediatype->name . '.csv';
+        $headers = ['Content-Type' => 'text/csv'];
+
+        $callback = function() use ($mediatype) {
+            $handle = fopen('php://output', 'w');
+            fputcsv($handle, ['ID', 'Name', 'Kontakt', 'Preis', 'Start', 'Ende']);
+
+            foreach ($mediatype->subscriptions as $sub) {
+                fputcsv($handle, [
+                    $sub->id,
+                    $sub->name,
+                    $sub->contact,
+                    $sub->price,
+                    $sub->subscribed_at,
+                    $sub->subscription_end
+                ]);
+            }
+
+            fclose($handle);
+        };
+
+        return Response::stream($callback, 200, array_merge($headers, [
+            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+        ]));
     }
 }

@@ -6,17 +6,69 @@ use App\Http\Requests\StoreSubscriptionRequest;
 use App\Http\Requests\UpdateSubscriptionRequest;
 use App\Models\Subscription;
 use App\Models\Mediatype;
+use Illuminate\Http\Request; 
+use Carbon\Carbon;
 
 class SubscriptionController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+
+    public function index(Request $request)
     {
-        //
-        $subs = Subscription::all();
-        return view('subscriptions.index', ['subs' => $subs]);
+        $query = Subscription::query();
+
+        if ($request->has('search') && $request->filled('search')) {
+            $query->where('name', 'like', '%' . $request->search . '%');
+         }
+
+        if ($request->has('sort')) {
+             switch ($request->sort) {
+                case 'price_asc':
+                    $query->orderBy('price', 'asc');
+                    break;
+                case 'price_desc':
+                    $query->orderBy('price', 'desc');
+                    break;
+             }
+        }
+
+        // Sortierlogik
+        switch ($request->sort) {
+            case 'name_asc':
+                $query->orderBy('name', 'asc');
+                break;
+            case 'name_desc':
+                $query->orderBy('name', 'desc');
+                break;
+            case 'price_asc':
+                $query->orderBy('price', 'asc');
+                break;
+            case 'price_desc':
+                $query->orderBy('price', 'desc');
+                    break;
+        }
+
+        if ($request->filled('min_price') || $request->filled('max_price')) {
+            $min = $request->input('min_price', 0);
+            $max = $request->input('max_price', 100000);
+
+            if ($request->filled('min_price') && !$request->filled('max_price')) {
+                $query->where('price', '>=', $min);
+            } elseif (!$request->filled('min_price') && $request->filled('max_price')) {
+                $query->where('price', '<=', $max);
+            } else {
+                $query->whereBetween('price', [$min, $max]);
+             }
+        }
+    
+        $subs = $query->get();
+
+        return view('subscriptions.index', [
+            'subs' => $subs,
+            'search' => $request->search
+        ]);
     }
 
     /**
@@ -25,8 +77,11 @@ class SubscriptionController extends Controller
     public function create()
     {
         //
-        
-        return view('subscriptions.create');
+
+
+        $mts = \App\Models\Mediatype::all(); // oder dein passender Pfad
+        return view('subscriptions.create', compact('mts'));
+
     }
 
     /**
@@ -64,10 +119,12 @@ class SubscriptionController extends Controller
      */
     public function update(UpdateSubscriptionRequest $request, Subscription $subscription)
     {
-        //
         $validated = $request->validated();
+
+        // Optional: sicherstellen, dass alle gewünschten Felder erlaubt sind
         $subscription->update($validated);
-        return redirect()->back()->with('message','Hat geklappt!');
+
+        return redirect()->route('subscriptions.index')->with('success', 'Subscription wurde erfolgreich aktualisiert.');
     }
 
     /**
@@ -80,5 +137,24 @@ class SubscriptionController extends Controller
 
     return redirect()->route('subscriptions.index')
                      ->with('success', 'Subscription gelöscht!');
+    }
+
+    public function searchSuggestions(Request $request)
+    {
+    $term = $request->query('term');
+
+    $results = Subscription::where('name', 'like', '%' . $term . '%')
+        ->pluck('name')
+        ->take(5); // Max. 5 Vorschläge
+
+    return response()->json($results);
+    }
+    public function extend(Subscription $subscription)
+    {
+        $subscription->subscription_end = Carbon::parse($subscription->subscription_end)->addYear();
+        $subscription->save();
+
+        return redirect()->route('subscriptions.show', $subscription)
+                        ->with('success', 'Abo wurde um 1 Jahr verlängert.');
     }
 }

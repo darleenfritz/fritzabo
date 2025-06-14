@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\App;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -20,5 +22,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         //
+        setlocale(LC_TIME, 'de_DE.UTF-8');
+        Carbon::setLocale('de');
     }
 }
