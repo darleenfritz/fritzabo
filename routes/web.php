@@ -42,3 +42,7 @@ Route::post('/feedback', [FeedbackController::class, 'store'])->name('feedback.s
 Route::get('/', function () {
     return view('pages.start');
 })->name('start');
+
+Route::view('/kontakt', 'pages.kontakt')->name('kontakt');
+
+

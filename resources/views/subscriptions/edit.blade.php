@@ -123,19 +123,26 @@
     </form>
 </div>
 
-<!-- Flatpickr -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/de.js"></script>
-<script>
-    flatpickr("#subscribed_at", {
-        dateFormat: "d.m.Y",
-        locale: "de"
-    });
+@push('scripts')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/de.js"></script>
 
-    flatpickr("#subscription_end", {
-        dateFormat: "d.m.Y",
-        locale: "de"
-    });
-</script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            flatpickr("#subscribed_at", {
+                dateFormat: "d.m.Y",
+                locale: "de"
+            });
+
+            flatpickr("#subscription_end", {
+                dateFormat: "d.m.Y",
+                locale: "de"
+            });
+        });
+    </script>
+@endpush
+
+
+
 @endsection

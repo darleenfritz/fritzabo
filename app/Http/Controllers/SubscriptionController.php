@@ -8,6 +8,7 @@ use App\Models\Subscription;
 use App\Models\Mediatype;
 use Illuminate\Http\Request; 
 use Carbon\Carbon;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class SubscriptionController extends Controller
 {
@@ -157,4 +158,5 @@ class SubscriptionController extends Controller
         return redirect()->route('subscriptions.show', $subscription)
                         ->with('success', 'Abo wurde um 1 Jahr verlängert.');
     }
+
 }

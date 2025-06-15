@@ -148,6 +148,8 @@ h2 {
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         ">+</a>
     </div>
+    
+
 
     <h2>Liste der Subscriptions</h2>
 
@@ -190,8 +192,12 @@ h2 {
                 <h3>{{ $sub->name }}</h3>
                 <p><strong>Kontakt:</strong> {{ $sub->contact }}</p>
                 <p><strong>Preis:</strong> {{ $sub->price }} €</p>
-                <p><strong>Start:</strong> {{ $sub->subscribed_at->translatedFormat('d. F Y') }}</p>
-                <p><strong>Ende:</strong> {{ $sub->subscription_end->translatedFormat('d. F Y') }}</p>
+                <p><strong>Start:</strong>
+                    {{ $sub->subscribed_at ? $sub->subscribed_at->translatedFormat('d. F Y') : '—' }}
+                </p>
+                <p><strong>Ende:</strong>
+                    {{ $sub->subscription_end ? $sub->subscription_end->translatedFormat('d. F Y') : '—' }}
+                </p>
 
                 <div class="actions">
                     <a class="details-btn" href="{{ route('subscriptions.show', $sub) }}">Details</a>
@@ -247,4 +253,5 @@ document.addEventListener('click', function(e) {
     }
 });
 </script>
+
 @endsection

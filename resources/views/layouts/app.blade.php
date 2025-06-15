@@ -100,6 +100,11 @@
 </head>
 <body style="background-color: white; min-height: 100vh; display: flex; flex-direction: column;">
     <div id="app" style="flex: 1;">
+    @if (session('success'))
+        <div id="toast-data" data-message="{{ session('success') }}" data-type="success"></div>
+    @endif
+
+<toast></toast>
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand logo-text" href="{{ url('/') }}">
@@ -120,7 +125,28 @@
                             <ul class="dropdown-menu" aria-labelledby="manageDropdown">
                                 <li><a class="dropdown-item" href="{{ route('subscriptions.index') }}">Subscriptions</a></li>
                                 <li><a class="dropdown-item" href="{{ route('mediatypes.index') }}">Medientypen</a></li>
+                                
                             </ul>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="funktionenDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Funktionen
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="funktionenDropdown">
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('subscriptions.index') }}">Abos durchsuchen</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('mediatypes.index') }}">Medientypen durchsuchen</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('subscriptions.create') }}"> Neue Subscription anlegen</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('mediatypes.create') }}"> Neuer Medientyp</a>
+                                </li>
+                                
+                            </ul>
+                        </li>
                         </li>
                     </ul>
 
@@ -156,5 +182,6 @@
         <a href="{{ route('feedback.create') }}" style="color: #ec407a; text-decoration: none;">Feedback</a>
     </div>
 </footer>
+@stack('scripts')
 </body>
 </html>

@@ -85,7 +85,7 @@
 
         <div class="mb-3">
             <label for="subscribed_at" class="form-label">Startdatum</label>
-            <input type="date" class="form-control @error('subscribed_at') is-invalid @enderror"
+            <input type="text" class="form-control @error('subscribed_at') is-invalid @enderror"
                    id="subscribed_at" name="subscribed_at" value="{{ old('subscribed_at') }}">
             @error('subscribed_at')
                 <span class="text-danger">{{ $message }}</span>
@@ -119,4 +119,19 @@
         </div>
     </form>
 </div>
+<!-- Flatpickr -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/l10n/de.js"></script>
+<script>
+    flatpickr("#subscribed_at", {
+        dateFormat: "d.m.Y",
+        locale: "de"
+    });
+
+    flatpickr("#subscription_end", {
+        dateFormat: "d.m.Y",
+        locale: "de"
+    });
+</script>
 @endsection

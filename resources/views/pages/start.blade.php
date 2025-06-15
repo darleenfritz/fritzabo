@@ -7,7 +7,7 @@
     padding: 80px 30px;
     text-align: center;
     color: white;
-    border-radius: 16px;
+    border-radius: 0px;
     box-shadow: 0 4px 20px rgba(0,0,0,0.1);
     margin-bottom: 50px;
 }
@@ -145,9 +145,9 @@
         <p>Verwalte all Deine Abonnements zentral – egal ob digital, print oder streaming.</p>
     </div>
     <div class="feature-box">
-        <div class="feature-icon">⏰</div>
-        <h3>Nie mehr vergessen</h3>
-        <p>Automatische Erinnerungen vor Ablauf – keine unnötigen Verlängerungen mehr.</p>
+        <div class="feature-icon">🤖</div>
+        <h3>Immer für Dich da</h3>
+        <p>Fritzi, unser Chatbot, beantwortet Deine Fragen in Sekunden – schnell, freundlich und jederzeit erreichbar.</p>
     </div>
     <div class="feature-box">
         <div class="feature-icon">⚙️</div>
@@ -156,7 +156,6 @@
     </div>
 </div>
 
-{{-- Fancy Testimonials --}}
 <div class="fancy-carousel">
     <div class="fancy-slide active">
         <p>„FritzAbo hat meine Abo-Chaos endlich aufgeräumt – super einfach!“</p>
@@ -232,7 +231,7 @@ setInterval(nextFancySlide, 6000);
 
 </div>
 <div style="max-width: 700px; margin: 60px auto; background: #f9f9f9; padding: 30px; border-radius: 16px; text-align: center;">
-    <h3 style="color: #ec407a;">Bleib auf dem Laufenden</h3>
+    <h3 style="color: #ec407a;">Newsletter anmelden</h3>
     <p style="font-size: 15px; color: #555;">Verpasse keine neuen Features oder Verbesserungen mehr.</p>
     <input type="email" placeholder="E-Mail-Adresse" style="padding: 10px; width: 60%; border-radius: 8px; border: 1px solid #ccc; margin-top: 10px;">
     <br>

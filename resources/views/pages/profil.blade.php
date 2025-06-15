@@ -123,14 +123,6 @@
     </ul>
 </div>
 
-<div class="profile-section">
-    <h3>Deine Vorteile bei FritzAbo</h3>
-    <ul>
-        <li>✔️ Übersichtliche Verwaltung all Deiner Abos</li>
-        <li>✔️ Abo Verlängerungssystem</li>
-        <li>✔️ Persönlicher Kontakt und Unterstützung</li>
-    </ul>
-</div>
 
 <div class="profile-section">
     <h3>Kontakt zum Support</h3>
@@ -138,5 +130,8 @@
     <p><strong>E-Mail:</strong><br>
     <a href="mailto:support@fritzabo.de" style="color: #ec407a;">support@fritzabo.de</a></p>
     <p><strong>Telefon:</strong><br>+49 931 123456</p>
+    <p style="margin-top: 15px;">
+        👉 <a href="{{ route('kontakt') }}" style="color: #ec407a; font-weight: bold;">Zur Kontaktseite</a>
+    </p>
 </div>
 @endsection
