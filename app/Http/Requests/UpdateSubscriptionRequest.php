@@ -28,6 +28,7 @@ class UpdateSubscriptionRequest extends FormRequest
             'subscribed_at' => 'nullable|date',
             'subscription_end' => 'nullable|date|after_or_equal:subscribed_at',
             'mediatype_id' => 'nullable|exists:mediatypes,id',
+            'billingcycle_id'=> 'nullable|exists:billingcycles,id',
         ];
     }
 }

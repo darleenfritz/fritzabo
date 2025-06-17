@@ -33,6 +33,7 @@
     margin-bottom: 50px;
     padding: 0 20px;
 }
+
 .feature-box {
     background: white;
     border-radius: 16px;
@@ -131,6 +132,48 @@
 .carousel-dot.active {
     background: #ec407a;
 }
+
+.start-box {
+    background: white;
+    border-radius: 16px;
+    padding: 30px 20px;
+    text-decoration: none;
+    color: #444;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+    flex: 1 1 240px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.start-box div:first-child {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+.start-box div:nth-child(2) {
+    font-weight: bold;
+    font-size: 16px;
+}
+.start-box div:nth-child(3) {
+    font-size: 13px;
+    color: #666;
+    margin-top: 6px;
+}
+
+.start-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+
+/* Farben pro Box */
+.pink-box:hover {
+    color: #ec407a;
+}
+.purple-box:hover {
+    color: #ba68c8;
+}
+.blue-box:hover {
+    color: #90caf9;
+}
 </style>
 
 <div class="hero">
@@ -142,7 +185,7 @@
     <div class="feature-box">
         <div class="feature-icon">📊</div>
         <h3>Alle Abos im Griff</h3>
-        <p>Verwalte all Deine Abonnements zentral – egal ob digital, print oder streaming.</p>
+        <p>Verwalte all Deine Abonnements zentral – egal ob Digital, Print oder Streaming.</p>
     </div>
     <div class="feature-box">
         <div class="feature-icon">🤖</div>
@@ -212,7 +255,7 @@ setInterval(nextFancySlide, 6000);
     <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
         <a href="{{ route('subscriptions.index') }}" style="flex: 1 1 240px; background: white; border-radius: 14px; padding: 24px; text-decoration: none; color: #ec407a; box-shadow: 0 2px 8px rgba(0,0,0,0.05); transition: transform 0.2s;">
             <div style="font-size: 32px; margin-bottom: 10px;">📋</div>
-            <div style="font-weight: bold; font-size: 16px;">Meine Abos</div>
+            <div style="font-weight: bold; font-size: 16px;">Meine Subscriptions</div>
             <div style="font-size: 13px; color: #666; margin-top: 6px;">Verwalte Deine Abonnements</div>
         </a>
 
@@ -229,12 +272,34 @@ setInterval(nextFancySlide, 6000);
         </a>
     </div>
 
+    
+
 </div>
-<div style="max-width: 700px; margin: 60px auto; background: #f9f9f9; padding: 30px; border-radius: 16px; text-align: center;">
+<div style="max-width: 700px; margin: 60px auto; background: #f9f9f9; padding: 30px; border-radius: 16px; text-align: center;" id="newsletterBox">
     <h3 style="color: #ec407a;">Newsletter anmelden</h3>
     <p style="font-size: 15px; color: #555;">Verpasse keine neuen Features oder Verbesserungen mehr.</p>
-    <input type="email" placeholder="E-Mail-Adresse" style="padding: 10px; width: 60%; border-radius: 8px; border: 1px solid #ccc; margin-top: 10px;">
+    
+    <input type="email" id="newsletterEmail" placeholder="E-Mail-Adresse" style="padding: 10px; width: 60%; border-radius: 8px; border: 1px solid #ccc; margin-top: 10px;">
     <br>
-    <button style="margin-top: 10px; background-color: #ec407a; color: white; padding: 10px 20px; border: none; border-radius: 8px;">Jetzt anmelden</button>
+    <button onclick="fakeNewsletterSubmit()" style="margin-top: 10px; background-color: #ec407a; color: white; padding: 10px 20px; border: none; border-radius: 8px;">Jetzt anmelden</button>
+
+    <div id="newsletterSuccess" style="display: none; margin-top: 20px; color: #ba68c8; font-weight: bold;">
+        Danke! Du hast Dich erfolgreich zum Newsletter angemeldet.
+    </div>
 </div>
+
+<script>
+function fakeNewsletterSubmit() {
+    const input = document.getElementById('newsletterEmail');
+    const message = document.getElementById('newsletterSuccess');
+
+    if (input.value.trim() === '' || !input.value.includes('@')) {
+        alert('Bitte gib eine gültige E-Mail-Adresse ein.');
+        return;
+    }
+
+    message.style.display = 'block';
+    input.value = '';
+}
+</script>
 @endsection

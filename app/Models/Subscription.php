@@ -17,7 +17,8 @@ class Subscription extends Model
         'price',
         'subscribed_at',
         'subscription_end',
-        'mediatype_id'
+        'mediatype_id',
+        'billingcycle_id',
     ];
 
     public function mediatype()
@@ -25,11 +26,18 @@ class Subscription extends Model
         return $this->belongsTo(Mediatype::class);
     }
 
+
+    public function billingcycle()
+    {
+        return $this->belongsTo(\App\Models\Billingcycle::class);
+    }
+
     protected $casts = [
     'subscribed_at' => 'datetime',
     'subscription_end' => 'datetime',
     'created_at' => 'datetime',
     'updated_at' => 'datetime',
+    
 ];
 
 }

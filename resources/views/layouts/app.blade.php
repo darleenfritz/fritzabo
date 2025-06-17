@@ -125,6 +125,7 @@
                             <ul class="dropdown-menu" aria-labelledby="manageDropdown">
                                 <li><a class="dropdown-item" href="{{ route('subscriptions.index') }}">Subscriptions</a></li>
                                 <li><a class="dropdown-item" href="{{ route('mediatypes.index') }}">Medientypen</a></li>
+                                <li><a class="dropdown-item" href="{{ route('billingcycles.index') }}">Abrechnungszyklen</a></li>
                                 
                             </ul>
                         <li class="nav-item dropdown">
@@ -139,10 +140,36 @@
                                     <a class="dropdown-item" href="{{ route('mediatypes.index') }}">Medientypen durchsuchen</a>
                                 </li>
                                 <li>
+                                    <a class="dropdown-item" href="{{ route('billingcycles.index') }}">Abrechnungszyklen durchsuchen</a>
+                                </li>
+                                <li>
                                     <a class="dropdown-item" href="{{ route('subscriptions.create') }}"> Neue Subscription anlegen</a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="{{ route('mediatypes.create') }}"> Neuer Medientyp</a>
+                                    <a class="dropdown-item" href="{{ route('mediatypes.create') }}"> Neuen Medientypen anlegen</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('billingcycles.create') }}"> Neuen Abrechnungszyklus anlegen</a>
+                                </li>
+                                
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="funktionenDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Informationen
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="funktionenDropdown">
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('kontakt') }}">Kontakt</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('feedback.create') }}">Feedback geben</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('impressum') }}">Impressum</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('datenschutz') }}">Datenschutz</a>
                                 </li>
                                 
                             </ul>

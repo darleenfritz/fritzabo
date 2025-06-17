@@ -47,16 +47,17 @@ function handleChat() {
     const lower = userMessage.toLowerCase();
 
     if (lower.includes('kündigen')) {
-        botResponse = 'Du kannst Dein Abo jederzeit über unsere Website oder per E-Mail kündigen.';
+        botResponse = 'Du kannst Deine Mitgliedschaft bei FritzAbo jederzeit per E-Mail kündigen.';
     } else if (lower.includes('preis')) {
         botResponse = 'Die Preise findest Du auf der Übersichtsseite der Abonnements.';
     } else if (lower.includes('kontakt')) {
         botResponse = 'Du erreichst uns unter support@fritzabo.de oder telefonisch.';
     } else if (lower.includes('hilfe')) {
         botResponse = 'Ich helfe Dir gerne! Frag mich nach Preisen, Kündigung oder Support.';
-    } else if (lower.includes('laufzeit')) {
-        botResponse = 'Die Laufzeit hängt vom jeweiligen Abo ab – meistens 1 Jahr.';
+    } else if (lower.includes('danke')) {
+        botResponse = 'Gerne! Bis zum nächsten Mal.';
     }
+    
 
     setTimeout(() => {
         log.innerHTML += `<div><strong>Fritzi:</strong> ${botResponse}</div>`;

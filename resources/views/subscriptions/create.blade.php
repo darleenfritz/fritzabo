@@ -114,6 +114,19 @@
             @enderror
         </div>
 
+        <div class="mb-3">
+            <label for="billingcycle_id" class="form-label">Abrechnungszyklus</label>
+            <select name="billingcycle_id" id="billingcycle_id" class="form-control @error('billingcycle_id') is-invalid @enderror">
+                <option value="">- bitte wählen -</option>
+                @foreach ($billingcycles as $cycle)
+                    <option value="{{ $cycle->id }}" @selected(old('billingcycle_id') == $cycle->id)>{{ $cycle->name }}</option>
+                @endforeach
+            </select>
+            @error('billingcycle_id')
+                <span class="text-danger">{{ $message }}</span>
+            @enderror
+        </div>
+
         <div class="text-center mt-4">
             <button type="submit" class="btn btn-pink px-4 py-2">Speichern</button>
         </div>

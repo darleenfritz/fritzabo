@@ -63,6 +63,28 @@ class SubscriptionController extends Controller
                 $query->whereBetween('price', [$min, $max]);
              }
         }
+        if ($request->has('sort')) {
+            switch ($request->sort) {
+                case 'price_asc':
+                    $query->orderBy('price', 'asc');
+                    break;
+                case 'price_desc':
+                    $query->orderBy('price', 'desc');
+                    break;
+                case 'name_asc':
+                    $query->orderBy('name', 'asc');
+                    break;
+                case 'name_desc':
+                    $query->orderBy('name', 'desc');
+                    break;
+                case 'active':
+                    $query->where('subscription_end', '>=', now());
+                    break;
+                case 'expired':
+                    $query->where('subscription_end', '<', now());
+                    break;
+            }
+        }
     
         $subs = $query->get();
 
@@ -77,12 +99,10 @@ class SubscriptionController extends Controller
      */
     public function create()
     {
-        //
+        $mts = Mediatype::all();
+        $billingcycles = \App\Models\Billingcycle::all();
 
-
-        $mts = \App\Models\Mediatype::all(); // oder dein passender Pfad
-        return view('subscriptions.create', compact('mts'));
-
+        return view('subscriptions.create', compact('mts', 'billingcycles'));
     }
 
     /**
@@ -112,7 +132,12 @@ class SubscriptionController extends Controller
     public function edit(Subscription $subscription)
     {
         //
-        return view('subscriptions.edit', ['sub' => $subscription, 'mts' => Mediatype::all()]);
+        return view('subscriptions.edit', [
+            'sub' => $subscription,
+            'mts' => Mediatype::all(),
+            'billingcycles' => \App\Models\Billingcycle::all()
+        ]);
+        
     }
 
     /**

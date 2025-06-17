@@ -143,6 +143,10 @@ button.edit-btn:hover {
             <tr><td>Kontakt</td><td>{{ $sub->contact }}</td></tr>
             <tr><td>Kategorie</td><td>{{ $sub->mediatype->name ?? '–' }}</td></tr>
             <tr><td>Preis</td><td>{{ $sub->price }} €</td></tr>
+            <tr>
+                <td>Abrechnungszyklus</td>
+                <td>{{ $sub->billingcycle?->name ?? '–' }} (alle {{ $sub->billingcycle?->interval_in_days }} Tage)</td>
+            </tr>
             <tr><td>Start</td><td>{{ $start->format('d.m.Y') }}</td></tr>
             <tr><td>Ende</td><td>{{ $end->format('d.m.Y') }}</td></tr>
             <tr><td>Dauer</td><td>{{ $days }} Tage</td></tr>

@@ -166,6 +166,8 @@ h2 {
                 <option value="price_desc" {{ request('sort') == 'price_desc' ? 'selected' : '' }}>Preis absteigend</option>
                 <option value="name_asc" {{ request('sort') == 'name_asc' ? 'selected' : '' }}>Name A-Z</option>
                 <option value="name_desc" {{ request('sort') == 'name_desc' ? 'selected' : '' }}>Name Z-A</option>
+                <option value="active" {{ request('sort') == 'active' ? 'selected' : '' }}>Nur aktive Abos</option>
+                <option value="expired" {{ request('sort') == 'expired' ? 'selected' : '' }}>Nur abgelaufene Abos</option>
             </select>
         </div>
 

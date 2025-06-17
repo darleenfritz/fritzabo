@@ -2,11 +2,16 @@
 
 @section('content')
 @php
-    use Carbon\Carbon;
+     use Carbon\Carbon;
+
     $subs = \App\Models\Subscription::all();
-    $activeCount = $subs->where('subscription_end', '>=', now())->count();
+    $activeSubs = \App\Models\Subscription::with('billingcycle')
+        ->where('subscription_end', '>=', now())
+        ->get();
+
+    $activeCount = $activeSubs->count();
     $expiredCount = $subs->where('subscription_end', '<', now())->count();
-    $avgPrice = $subs->avg('price');
+    
 @endphp
 
 <style>
@@ -77,6 +82,13 @@
     font-size: 20px;
     color: #ec407a;
 }
+
+.stat-item:hover {
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    transform: translateY(-2px);
+    transition: 0.2s ease-in-out;
+}
+
 </style>
 
 <div class="profile-card">
@@ -98,21 +110,16 @@
 <div class="profile-section">
     <h3>Deine Abo-Statistik</h3>
     <div class="stat-box">
-        <div class="stat-item">
+        <a href="{{ route('subscriptions.index', ['sort' => 'active']) }}" class="stat-item" style="text-decoration: none;">
             <strong>{{ $activeCount }}</strong>
-            Aktive Abos
-        </div>
-        <div class="stat-item">
+            <span style="color: #444;">Aktive Abos</span>
+        </a>
+        <a href="{{ route('subscriptions.index', ['sort' => 'expired']) }}" class="stat-item" style="text-decoration: none;">
             <strong>{{ $expiredCount }}</strong>
-            Abgelaufen
-        </div>
-        <div class="stat-item">
-            <strong>{{ number_format($avgPrice, 2, ',', '.') }} €</strong>
-            Ø Preis
-        </div>
+            <span style="color: #444;">Abgelaufene Abos</span>
+        </a>
     </div>
 </div>
-
 
 <div class="profile-section">
     <h3>Letzten Aktivitäten</h3>

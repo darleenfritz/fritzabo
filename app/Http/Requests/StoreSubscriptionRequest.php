@@ -26,8 +26,11 @@ class StoreSubscriptionRequest extends FormRequest
             //
             'name' => 'required',
             'contact'=>'required',
+            'mediatype_id' => ['nullable', 'exists:mediatypes,id'],
             'price' => 'required|decimal:0,2',
-            'subscribed_at' => 'date'
+            'subscribed_at' => 'date',
+            'subscription_end' => 'nullable|date',
+            'billingcycle_id' => ['nullable', 'exists:billingcycles,id'],
         ];
     }
 }
