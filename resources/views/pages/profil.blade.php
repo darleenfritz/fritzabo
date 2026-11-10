@@ -97,7 +97,7 @@
     </div>
     <div class="profile-details">
         <h2>Darleen Fritz</h2>
-        <p><strong>E-Mail:</strong> darleen.fritz@fritzabo.de</p>
+        <p><strong>E-Mail:</strong> beispiel@fritzabo.example</p>
         <p><strong>Kundennummer:</strong> #10001</p>
         <p><strong>Kunde seit:</strong> Januar 2024</p>
     </div>
@@ -134,9 +134,6 @@
 <div class="profile-section">
     <h3>Kontakt zum Support</h3>
     <p>Du hast Fragen zu Deinem Kundenkonto oder Deinen Abos? Unser Support-Team hilft Dir gerne weiter:</p>
-    <p><strong>E-Mail:</strong><br>
-    <a href="mailto:support@fritzabo.de" style="color: #ec407a;">support@fritzabo.de</a></p>
-    <p><strong>Telefon:</strong><br>+49 931 123456</p>
     <p style="margin-top: 15px;">
         👉 <a href="{{ route('kontakt') }}" style="color: #ec407a; font-weight: bold;">Zur Kontaktseite</a>
     </p>

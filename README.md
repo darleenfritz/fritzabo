@@ -1,61 +1,82 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# FritzAbo
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Eine Webanwendung zur Verwaltung von Abonnements, entwickelt mit Laravel. Streaming, Musik, Zeitungen oder Hörbücher lassen sich an einem Ort erfassen, nach Medientyp und Abrechnungszyklus ordnen, durchsuchen und als CSV exportieren.
 
-## About Laravel
+![Startseite von FritzAbo](docs/startseite.png)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Hintergrund
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+FritzAbo entstand als Einzelarbeit im Modul „Webanwendungen“ im Studiengang E-Commerce an der Technischen Hochschule Würzburg-Schweinfurt (THWS), Sommersemester 2025.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+**Hinweis:** FritzAbo ist ein Studienprojekt und kein echtes Unternehmen. Die Anwendung ist ein Prototyp zum Lernen und Vorführen, nicht für den echten Einsatz gedacht. Einige Elemente sind nur angedeutet, zum Beispiel der Knopf „Abo beenden“ in der Übersicht. Impressum, Datenschutz und Kontakt sind Beispielseiten.
 
-## Learning Laravel
+## Funktionen
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+**Abonnements**
+- Abos anlegen, ansehen, bearbeiten und löschen
+- Pro Abo: Name, Kontakt, Medientyp, Preis, Abrechnungszyklus, Start und Ende
+- Detailansicht mit Laufzeit in Tagen, Status (aktiv oder abgelaufen), Druckansicht und Blättern zum vorherigen oder nächsten Abo
+- Verlängern um ein Jahr mit einem Klick
+- Suche nach Namen mit Vorschlägen, Sortierung und Filter nach Preisspanne
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+**Medientypen und Abrechnungszyklen**
+- Eigene Bereiche zum Anlegen, Bearbeiten und Löschen, zum Beispiel „Streaming“ oder „Wöchentlich (alle 7 Tage)“
+- Übersicht, welche Abos zu einem Medientyp oder Zyklus gehören
+- Export der zugehörigen Abos als CSV-Datei
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+**Weiteres**
+- Registrierung, Login und Passwort zurücksetzen
+- Jedes Abo gehört zu einem Benutzerkonto, Zugriffe werden über eine Policy geprüft
+- Feedback-Formular
+- „Fritzi“, ein kleiner Chatbot auf der Kontaktseite, der auf Stichwörter mit festen Antworten reagiert
 
-## Laravel Sponsors
+## Screenshots
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+| Abo-Übersicht | Abo-Details |
+| --- | --- |
+| ![Liste der Abonnements mit Suche und Filter](docs/abo-liste.png) | ![Detailansicht eines Abos](docs/abo-details.png) |
 
-### Premium Partners
+![Medientypen mit zugehörigen Abos](docs/medientypen.png)
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+## Technik
 
-## Contributing
+| Bereich | Umsetzung |
+| --- | --- |
+| Backend | PHP 8.2, Laravel 12 |
+| Frontend | Blade-Templates, Bootstrap 5, Vite |
+| Datenbank | MySQL 8 |
+| Entwicklungsumgebung | Laravel Sail (Docker) |
+| Anmeldung | Laravel UI Auth |
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Die Anwendung folgt dem MVC-Prinzip von Laravel: Modelle für `Subscription`, `Mediatype`, `Billingcycle` und `User`, Resource-Controller für die drei Bereiche, Form Requests für die Validierung und eine `SubscriptionPolicy` für die Berechtigungen. Testdaten erzeugt eine Factory mit 50 Beispiel-Abos.
 
-## Code of Conduct
+## Lokal starten
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Voraussetzungen: PHP 8.2, Composer und Docker Desktop.
 
-## Security Vulnerabilities
+1. Repository klonen und PHP-Abhängigkeiten installieren:
+   ```
+   git clone https://github.com/darleenfritz/fritzabo.git
+   cd fritzabo
+   composer install
+   ```
+2. Umgebungsdatei anlegen:
+   ```
+   cp .env.example .env
+   ```
+3. Container starten, Schlüssel erzeugen und Datenbank mit Testdaten füllen:
+   ```
+   ./vendor/bin/sail up -d
+   ./vendor/bin/sail artisan key:generate
+   ./vendor/bin/sail artisan migrate --seed
+   ```
+4. Frontend bauen:
+   ```
+   ./vendor/bin/sail npm install
+   ./vendor/bin/sail npm run dev
+   ```
+5. Die Anwendung ist danach unter `http://localhost` erreichbar.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Autorin
 
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Darleen Fritz, Studentin E-Commerce an der THWS
